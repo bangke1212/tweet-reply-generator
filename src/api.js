@@ -201,7 +201,51 @@ export function saveApiKey(key) {
   localStorage.setItem('deepseek_api_key', key.trim());
 }
 
-export async function generateReply(tweetText, apiKey) {
+export function getLanguage() {
+  return localStorage.getItem('reply_language') || 'auto';
+}
+
+export function saveLanguage(lang) {
+  localStorage.setItem('reply_language', lang);
+}
+
+export function getTemperature() {
+  const val = localStorage.getItem('reply_temperature');
+  return val !== null ? parseFloat(val) : 0.7;
+}
+
+export function saveTemperature(temp) {
+  localStorage.setItem('reply_temperature', temp.toString());
+}
+
+export function getReplyCount() {
+  const val = localStorage.getItem('reply_count');
+  return val !== null ? Math.max(2, Math.min(10, parseInt(val, 10))) : 5;
+}
+
+export function saveReplyCount(count) {
+  localStorage.setItem('reply_count', Math.max(2, Math.min(10, count)).toString());
+}
+
+export async function generateReply(tweetText, apiKey, options = {}) {
+  const { language = 'auto', temperature = 0.7, replyCount = 5 } = options;
+
+  let userMessage = tweetText;
+  const overrides = [];
+
+  if (language !== 'auto') {
+    const langMap = { id: 'Bahasa Indonesia', en: 'English', ja: '日本語 (Japanese)' };
+    overrides.push(`Tulis SEMUA reply dalam bahasa: ${langMap[language]}. Apapun bahasa tweet aslinya, output HARUS dalam ${langMap[language]}.`);
+  }
+
+  if (replyCount !== 5) {
+    overrides.push(`Tulis ${replyCount} opsi reply (bukan 5). Sesuaikan jumlah opsi reply menjadi ${replyCount}.`);
+  }
+
+  if (overrides.length > 0) {
+    userMessage += '\n\n---\n[OVERRIDE SETTINGS]\n' + overrides.join('\n');
+  }
+
   const response = await fetch(CONFIG.API_URL, {
     method: 'POST',
     headers: {
@@ -212,9 +256,9 @@ export async function generateReply(tweetText, apiKey) {
       model: CONFIG.MODEL,
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
-        { role: 'user', content: tweetText },
+        { role: 'user', content: userMessage },
       ],
-      temperature: CONFIG.TEMPERATURE,
+      temperature,
       max_tokens: CONFIG.MAX_TOKENS,
       stream: false,
     }),
@@ -331,7 +375,7 @@ export function parseResponse(rawText) {
         .filter((l) => l.length > 0);
     }
 
-    result.replies = replies.slice(0, 5);
+    result.replies = replies.slice(0, 10);
 
     // Recommendation
     const recoMatch = rawText.match(/(?:Rekomendasi|rekomendasi)[:\s]*([\s\S]*?)$/i);

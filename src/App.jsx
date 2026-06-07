@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import styles from './App.module.css';
-import { getApiKey, saveApiKey, generateReply, parseResponse } from './api';
+import { getApiKey, saveApiKey, getLanguage, saveLanguage, getTemperature, saveTemperature, getReplyCount, saveReplyCount, generateReply, parseResponse } from './api';
 import ReplyCard from './components/ReplyCard';
 import MetaBar from './components/MetaBar';
 import SettingsModal from './components/SettingsModal';
@@ -45,7 +45,11 @@ export default function App() {
     setError('');
 
     try {
-      const raw = await generateReply(text, apiKey);
+      const raw = await generateReply(text, apiKey, {
+        language: getLanguage(),
+        temperature: getTemperature(),
+        replyCount: getReplyCount(),
+      });
       const parsed = parseResponse(raw);
       setResults(parsed);
       setState('results');
@@ -65,11 +69,14 @@ export default function App() {
     [handleGenerate]
   );
 
-  const handleSaveKey = useCallback(
-    (key) => {
-      saveApiKey(key);
+  const handleSaveSettings = useCallback(
+    (settings) => {
+      saveApiKey(settings.apiKey);
+      saveLanguage(settings.language);
+      saveTemperature(settings.temperature);
+      saveReplyCount(settings.replyCount);
       setShowSettings(false);
-      showToast('API key saved');
+      showToast('Settings saved');
     },
     [showToast]
   );
@@ -101,7 +108,7 @@ export default function App() {
             onChange={(e) => setTweet(e.target.value)}
             onKeyDown={handleKeyDown}
           />
-          {!tweet && (
+          {!tweet ? (
             <button
               className={styles.pasteBtn}
               onClick={async () => {
@@ -119,6 +126,17 @@ export default function App() {
                 <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
               </svg>
               Paste
+            </button>
+          ) : (
+            <button
+              className={styles.clearBtn}
+              onClick={() => setTweet('')}
+              aria-label="Clear text"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
             </button>
           )}
         </div>
@@ -150,7 +168,7 @@ export default function App() {
       {state === 'loading' && (
         <div className={styles.loadingState}>
           <div className={styles.skeletonMeta} />
-          {[...Array(5)].map((_, i) => (
+          {[...Array(getReplyCount())].map((_, i) => (
             <div key={i} className={styles.skeletonCard} />
           ))}
         </div>
@@ -214,8 +232,13 @@ export default function App() {
       <SettingsModal
         isOpen={showSettings}
         onClose={() => setShowSettings(false)}
-        onSave={handleSaveKey}
-        currentKey={getApiKey()}
+        onSave={handleSaveSettings}
+        currentSettings={{
+          apiKey: getApiKey(),
+          language: getLanguage(),
+          temperature: getTemperature(),
+          replyCount: getReplyCount(),
+        }}
       />
 
       {/* Toast */}

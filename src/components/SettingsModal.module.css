@@ -19,11 +19,13 @@
 
 .modal {
   width: 100%;
-  max-width: 440px;
+  max-width: 480px;
+  max-height: 85vh;
+  overflow-y: auto;
   background: var(--bg-secondary);
   border: 1px solid var(--border-card);
   border-radius: var(--radius);
-  padding: 32px;
+  padding: 28px 32px;
   box-shadow:
     0 24px 48px rgba(0, 0, 0, 0.3),
     0 0 0 1px rgba(255, 255, 255, 0.03);
@@ -41,24 +43,101 @@
   }
 }
 
+.modal::-webkit-scrollbar {
+  width: 4px;
+}
+
+.modal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal::-webkit-scrollbar-thumb {
+  background: var(--border-card);
+  border-radius: 2px;
+}
+
+/* ── Header ── */
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
 .title {
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin: 0 0 6px;
+  margin: 0;
   letter-spacing: -0.015em;
 }
 
-.desc {
-  font-size: 0.82rem;
+.closeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-xs);
   color: var(--text-muted);
-  margin: 0 0 20px;
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.closeBtn:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--border-card);
+  color: var(--text-primary);
+}
+
+/* ── Sections ── */
+.section {
+  margin-bottom: 20px;
+}
+
+.divider {
+  height: 1px;
+  background: var(--border-card);
+  margin: 24px 0;
+}
+
+.label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 8px 0 0;
   line-height: 1.55;
+}
+
+.hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 6px 0 0;
+  line-height: 1.4;
+}
+
+/* ── Input with Paste Button ── */
+.inputWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .input {
   width: 100%;
-  padding: 12px 16px;
+  padding: 12px 48px 12px 16px;
   background: var(--bg-primary);
   border: 1px solid var(--border-card);
   border-radius: var(--radius-sm);
@@ -85,9 +164,39 @@
   color: var(--text-muted);
 }
 
-/* ── How To Section ── */
+.inputBtn {
+  position: absolute;
+  right: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-xs);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-spring);
+}
+
+.inputBtn:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--border-card);
+  color: var(--text-secondary);
+}
+
+.inputBtn:active {
+  transform: scale(0.9);
+}
+
+/* ── How To ── */
 .howTo {
-  margin-top: 18px;
+  margin-top: 12px;
   padding: 14px 16px;
   background: var(--bg-primary);
   border: 1px solid var(--border-card);
@@ -95,7 +204,7 @@
 }
 
 .howToTitle {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -106,7 +215,7 @@
 .steps {
   margin: 0;
   padding-left: 18px;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
   line-height: 1.7;
   list-style: decimal;
@@ -130,12 +239,184 @@
   text-decoration: underline;
 }
 
+/* ── Select (Language) ── */
+.selectWrap {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+}
+
+.select {
+  width: 100%;
+  padding: 11px 40px 11px 16px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 0.88rem;
+  font-family: var(--font);
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition:
+    border-color var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.select:hover {
+  border-color: var(--border-card-hover);
+}
+
+.select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.select option {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.selectArrow {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+/* ── Counter (Reply Count) ── */
+.counterWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.counterBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.counterBtn:hover:not(:disabled) {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.counterBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.counterValue {
+  min-width: 48px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  border-left: 1px solid var(--border-card);
+  border-right: 1px solid var(--border-card);
+  padding: 8px 0;
+}
+
+/* ── Slider (Temperature) ── */
+.labelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.labelRow .label {
+  margin-bottom: 0;
+}
+
+.tempValue {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--accent-hover);
+  font-variant-numeric: tabular-nums;
+  background: var(--accent-dim);
+  padding: 2px 10px;
+  border-radius: var(--radius-xs);
+}
+
+.slider {
+  width: 100%;
+  height: 6px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--bg-tertiary);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  margin: 4px 0;
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--accent);
+  border: 2px solid var(--bg-secondary);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+  transition:
+    transform var(--duration-fast) var(--ease-spring),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 2px 12px rgba(79, 70, 229, 0.45);
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--accent);
+  border: 2px solid var(--bg-secondary);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+}
+
+.sliderLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
 /* ── Actions ── */
 .actions {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  margin-top: 22px;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-card);
 }
 
 .cancelBtn,
@@ -194,14 +475,17 @@
 /* ── Responsive ── */
 @media (max-width: 480px) {
   .overlay {
-    padding: 16px;
-    align-items: center;
-    justify-content: center;
+    padding: 12px;
   }
 
   .modal {
-    padding: 24px 20px;
+    padding: 22px 18px;
     max-width: 100%;
+    max-height: 90vh;
+  }
+
+  .modalHeader {
+    margin-bottom: 18px;
   }
 
   .title {
@@ -209,12 +493,11 @@
   }
 
   .desc {
-    font-size: 0.78rem;
-    margin-bottom: 16px;
+    font-size: 0.75rem;
   }
 
   .input {
-    padding: 11px 14px;
+    padding: 11px 44px 11px 14px;
     font-size: 0.88rem;
   }
 
@@ -230,8 +513,24 @@
     font-size: 0.78rem;
   }
 
+  .select {
+    font-size: 0.85rem;
+    padding: 10px 36px 10px 14px;
+  }
+
+  .counterBtn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .counterValue {
+    min-width: 40px;
+    font-size: 0.92rem;
+  }
+
   .actions {
-    margin-top: 18px;
+    margin-top: 22px;
+    padding-top: 16px;
   }
 
   .cancelBtn,

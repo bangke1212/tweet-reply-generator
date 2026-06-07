@@ -107,6 +107,38 @@
   transform: scale(0.95);
 }
 
+.clearBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--text-muted);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  z-index: 1;
+  transition:
+    background var(--duration-normal) var(--ease-out),
+    border-color var(--duration-normal) var(--ease-out),
+    color var(--duration-normal) var(--ease-out),
+    transform var(--duration-fast) var(--ease-spring);
+}
+
+.clearBtn:hover {
+  background: var(--error-dim);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: var(--error);
+}
+
+.clearBtn:active {
+  transform: scale(0.95);
+}
+
 .textarea {
   width: 100%;
   min-height: 130px;
@@ -504,6 +536,13 @@
     right: 8px;
     padding: 6px 10px;
     font-size: 0.72rem;
+  }
+
+  .clearBtn {
+    top: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
   }
 
   .inputFooter {
