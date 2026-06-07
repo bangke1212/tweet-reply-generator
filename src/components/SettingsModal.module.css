@@ -548,6 +548,23 @@
   pointer-events: none;
 }
 
+.saveBtn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.2) 50%, transparent 80%);
+  pointer-events: none;
+  transition: none;
+}
+
+.saveBtn:hover::after {
+  left: 120%;
+  transition: left 0.5s var(--ease-out);
+}
+
 .saveBtn:hover {
   background: var(--accent-hover);
   box-shadow: 0 4px 16px var(--accent-glow);

@@ -308,6 +308,23 @@
   pointer-events: none;
 }
 
+.generateBtn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.2) 50%, transparent 80%);
+  pointer-events: none;
+  transition: none;
+}
+
+.generateBtn:hover:not(:disabled)::after {
+  left: 120%;
+  transition: left 0.5s var(--ease-out);
+}
+
 .generateBtn:hover:not(:disabled) {
   background: var(--accent-hover);
   box-shadow: 0 4px 20px var(--accent-glow), 0 0 0 1px rgba(99,102,241,0.25);
