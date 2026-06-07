@@ -1,0 +1,245 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+  animation: overlayIn 250ms var(--ease-out) forwards;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  width: 100%;
+  max-width: 440px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow:
+    0 24px 48px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.03);
+  animation: modalIn 300ms var(--ease-out) forwards;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 6px;
+  letter-spacing: -0.015em;
+}
+
+.desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0 0 20px;
+  line-height: 1.55;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-family: var(--font);
+  outline: none;
+  transition:
+    box-shadow var(--duration-normal) var(--ease-out),
+    border-color var(--duration-normal) var(--ease-out);
+  box-sizing: border-box;
+}
+
+.input:hover {
+  border-color: var(--border-card-hover);
+}
+
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim), 0 0 16px var(--accent-dim);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+/* ── How To Section ── */
+.howTo {
+  margin-top: 18px;
+  padding: 14px 16px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-sm);
+}
+
+.howToTitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.steps {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  list-style: decimal;
+}
+
+.steps li {
+  padding-left: 4px;
+}
+
+.steps li + li {
+  margin-top: 2px;
+}
+
+.link {
+  color: var(--accent-hover);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* ── Actions ── */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.cancelBtn,
+.saveBtn {
+  padding: 9px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 0.84rem;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  transition:
+    transform var(--duration-fast) var(--ease-spring),
+    background var(--duration-normal) var(--ease-out),
+    border-color var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.cancelBtn:active,
+.saveBtn:active {
+  transform: scale(0.96);
+}
+
+.cancelBtn {
+  background: transparent;
+  border: 1px solid var(--border-card);
+  color: var(--text-secondary);
+}
+
+.cancelBtn:hover {
+  border-color: var(--border-card-hover);
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+}
+
+.saveBtn {
+  background: var(--accent);
+  border: 1px solid transparent;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.saveBtn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.saveBtn:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 4px 16px var(--accent-glow);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .overlay {
+    padding: 16px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal {
+    padding: 24px 20px;
+    max-width: 100%;
+  }
+
+  .title {
+    font-size: 1.05rem;
+  }
+
+  .desc {
+    font-size: 0.78rem;
+    margin-bottom: 16px;
+  }
+
+  .input {
+    padding: 11px 14px;
+    font-size: 0.88rem;
+  }
+
+  .howTo {
+    padding: 12px 14px;
+  }
+
+  .howToTitle {
+    font-size: 0.7rem;
+  }
+
+  .steps {
+    font-size: 0.78rem;
+  }
+
+  .actions {
+    margin-top: 18px;
+  }
+
+  .cancelBtn,
+  .saveBtn {
+    padding: 10px 18px;
+    font-size: 0.82rem;
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+  }
+}
