@@ -75,39 +75,6 @@
   transform: scale(0.93);
 }
 
-.headerActions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.downloadBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-sm);
-  background: var(--bg-card);
-  color: var(--text-muted);
-  cursor: pointer;
-  transition:
-    border-color var(--duration-normal) var(--ease-out),
-    background var(--duration-normal) var(--ease-out),
-    color var(--duration-normal) var(--ease-out),
-    transform var(--duration-fast) var(--ease-spring);
-}
-
-.downloadBtn:hover {
-  border-color: var(--border-card-hover);
-  background: var(--bg-elevated);
-  color: var(--text-primary);
-}
-
-.downloadBtn:active {
-  transform: scale(0.93);
-}
 
 .settingsBtn {
   display: flex;
@@ -625,11 +592,6 @@
   }
 
   .settingsBtn {
-    width: 38px;
-    height: 38px;
-  }
-
-  .downloadBtn {
     width: 38px;
     height: 38px;
   }
