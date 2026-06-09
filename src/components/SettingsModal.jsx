@@ -8,11 +8,18 @@ const LANGUAGES = [
   { value: 'ja', label: '日本語 (Jepang)' },
 ]
 
+const THEMES = [
+  { value: 'santai', emoji: '😎', label: 'Santai', desc: 'Ringan, relatable, kayak ngobrol sama teman' },
+  { value: 'tajam', emoji: '🔥', label: 'Tajam', desc: 'Bold, sarkasme cerdas, edgy tapi elegan' },
+  { value: 'cerdas', emoji: '🧠', label: 'Cerdas', desc: 'Berbobot, insightful, perspektif baru' },
+]
+
 export default function SettingsModal({ isOpen, onClose, onSave, currentSettings }) {
   const [apiKey, setApiKey] = useState('')
   const [language, setLanguage] = useState('auto')
   const [temperature, setTemperature] = useState(0.7)
   const [replyCount, setReplyCount] = useState(5)
+  const [theme, setTheme] = useState('santai')
   const [langOpen, setLangOpen] = useState(false)
   const dropdownRef = useRef(null)
 
@@ -22,6 +29,7 @@ export default function SettingsModal({ isOpen, onClose, onSave, currentSettings
       setLanguage(currentSettings.language || 'auto')
       setTemperature(currentSettings.temperature ?? 0.7)
       setReplyCount(currentSettings.replyCount ?? 5)
+      setTheme(currentSettings.theme || 'santai')
       setLangOpen(false)
     }
   }, [isOpen, currentSettings])
@@ -52,6 +60,7 @@ export default function SettingsModal({ isOpen, onClose, onSave, currentSettings
       language,
       temperature,
       replyCount,
+      theme,
     })
   }
 
@@ -154,6 +163,26 @@ export default function SettingsModal({ isOpen, onClose, onSave, currentSettings
             )}
           </div>
           <p className={styles.hint}>Bahasa yang digunakan AI untuk menulis reply</p>
+        </div>
+
+        {/* Theme */}
+        <div className={styles.section}>
+          <label className={styles.label}>Tema Reply</label>
+          <div className={styles.themeGrid}>
+            {THEMES.map((t) => (
+              <button
+                key={t.value}
+                type="button"
+                className={`${styles.themeCard} ${theme === t.value ? styles.themeActive : ''}`}
+                onClick={() => setTheme(t.value)}
+              >
+                <span className={styles.themeEmoji}>{t.emoji}</span>
+                <span className={styles.themeLabel}>{t.label}</span>
+                <span className={styles.themeDesc}>{t.desc}</span>
+              </button>
+            ))}
+          </div>
+          <p className={styles.hint}>Gaya dan karakter reply yang dihasilkan AI</p>
         </div>
 
         {/* Reply Count */}

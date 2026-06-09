@@ -238,8 +238,45 @@ export function saveReplyCount(count) {
   localStorage.setItem('reply_count', Math.max(2, Math.min(10, count)).toString());
 }
 
+export function getTheme() {
+  return localStorage.getItem('reply_theme') || 'santai';
+}
+
+export function saveTheme(theme) {
+  localStorage.setItem('reply_theme', theme);
+}
+
+const THEME_OVERRIDES = {
+  santai: `[TEMA: SANTAI / CASUAL]
+Gunakan tone yang ringan, relatable, dan hangat seperti ngobrol sama teman.
+- Humor ringan dan natural, boleh self-deprecating.
+- Bahasa sehari-hari yang santai, tidak kaku.
+- Emoji lebih ekspresif (boleh sampai 2-3).
+- Hindari reply yang terlalu serius, analitis, atau terkesan menggurui.
+- Energi: "teman yang nyambung diajak ngobrol"
+- Contoh vibe: "Gue juga ngalamin ini, rasanya pengen lempar laptop 😂"`,
+
+  tajam: `[TEMA: TAJAM / SAVAGE]
+Gunakan tone yang bold, berani kontra, sarkasme cerdas, dan edgy tapi tetap elegan.
+- Hot take yang bikin orang berhenti scroll.
+- Ironi halus, kontradiksi, dan provokasi yang smart.
+- Jangan takut kontroversial tapi harus tetap witty, bukan toxic.
+- Emoji minimal atau tidak sama sekali.
+- Energi: "orang yang bilang hal yang semua orang pikirkan tapi tidak berani bilang"
+- Contoh vibe: "Bilang 'hustle culture toxic' tapi posting jam 2 pagi, pick one bro"`,
+
+  cerdas: `[TEMA: CERDAS / INSIGHTFUL]
+Gunakan tone berbobot yang menambah perspektif baru.
+- Fokus pada data, observasi tajam, dan reframing yang bikin mikir.
+- Substansi tinggi, bangun authority lewat insight genuine.
+- Analisis yang membuat orang berpikir "wah bener juga ya".
+- Emoji sangat minimal (0-1).
+- Energi: "orang yang ngerti topiknya dalam dan bisa jelasin dengan simple"
+- Contoh vibe: "Yang menarik bukan fiturnya, tapi 70% user mereka dari tier 2-3. Distribusi ngalahin produk."`,
+};
+
 export async function generateReply(tweetText, apiKey, options = {}) {
-  const { language = 'auto', temperature = 0.7, replyCount = 5 } = options;
+  const { language = 'auto', temperature = 0.7, replyCount = 5, theme = 'santai' } = options;
 
   let userMessage = tweetText;
   const overrides = [];
@@ -251,6 +288,10 @@ export async function generateReply(tweetText, apiKey, options = {}) {
 
   if (replyCount !== 5) {
     overrides.push(`Tulis ${replyCount} opsi reply (bukan 5). Sesuaikan jumlah opsi reply menjadi ${replyCount}.`);
+  }
+
+  if (theme && THEME_OVERRIDES[theme]) {
+    overrides.push(THEME_OVERRIDES[theme]);
   }
 
   if (overrides.length > 0) {

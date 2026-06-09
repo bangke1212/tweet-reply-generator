@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import styles from './App.module.css';
-import { getApiKey, saveApiKey, getLanguage, saveLanguage, getTemperature, saveTemperature, getReplyCount, saveReplyCount, generateReply, parseResponse } from './api';
+import { getApiKey, saveApiKey, getLanguage, saveLanguage, getTemperature, saveTemperature, getReplyCount, saveReplyCount, getTheme, saveTheme, generateReply, parseResponse } from './api';
 import ReplyCard from './components/ReplyCard';
 import MetaBar from './components/MetaBar';
 import SettingsModal from './components/SettingsModal';
@@ -77,6 +77,7 @@ export default function App() {
         language: getLanguage(),
         temperature: getTemperature(),
         replyCount: getReplyCount(),
+        theme: getTheme(),
       });
       const parsed = parseResponse(raw);
       setResults(parsed);
@@ -103,6 +104,7 @@ export default function App() {
       saveLanguage(settings.language);
       saveTemperature(settings.temperature);
       saveReplyCount(settings.replyCount);
+      saveTheme(settings.theme);
       setShowSettings(false);
       showToast('Settings saved');
     },
@@ -278,6 +280,7 @@ export default function App() {
           language: getLanguage(),
           temperature: getTemperature(),
           replyCount: getReplyCount(),
+          theme: getTheme(),
         }}
       />
 

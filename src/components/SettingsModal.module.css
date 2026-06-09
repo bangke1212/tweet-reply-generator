@@ -340,6 +340,78 @@
   background: var(--bg-tertiary);
 }
 
+/* ── Theme Cards ── */
+.themeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.themeCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 8px 12px;
+  background: var(--bg-primary);
+  border: 1.5px solid var(--border-card);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-align: center;
+  transition:
+    border-color var(--duration-normal) var(--ease-out),
+    background var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out),
+    transform var(--duration-fast) var(--ease-spring);
+}
+
+.themeCard:hover {
+  border-color: var(--border-card-hover);
+  background: var(--bg-elevated);
+}
+
+.themeCard:active {
+  transform: scale(0.97);
+}
+
+.themeActive {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+  box-shadow: 0 0 0 3px var(--accent-dim), 0 0 20px rgba(79, 70, 229, 0.08);
+}
+
+.themeActive:hover {
+  border-color: var(--accent-hover);
+  background: var(--accent-dim);
+}
+
+.themeEmoji {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.themeLabel {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.themeActive .themeLabel {
+  color: var(--accent-hover);
+}
+
+.themeDesc {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+  font-weight: 400;
+}
+
+.themeActive .themeDesc {
+  color: var(--text-secondary);
+}
+
 /* ── Counter (Reply Count) ── */
 .counterWrap {
   display: inline-flex;
@@ -643,5 +715,32 @@
     flex: 1;
     justify-content: center;
     text-align: center;
+  }
+
+  .themeGrid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .themeCard {
+    flex-direction: row;
+    padding: 10px 14px;
+    gap: 10px;
+    text-align: left;
+  }
+
+  .themeEmoji {
+    font-size: 1.15rem;
+    flex-shrink: 0;
+  }
+
+  .themeLabel {
+    font-size: 0.8rem;
+    min-width: 50px;
+    flex-shrink: 0;
+  }
+
+  .themeDesc {
+    font-size: 0.7rem;
   }
 }
