@@ -205,11 +205,11 @@ export const CONFIG = {
 };
 
 export function getApiKey() {
-  return localStorage.getItem('deepseek_api_key') || '';
+  return localStorage.getItem('agnes_api_key') || '';
 }
 
 export function saveApiKey(key) {
-  localStorage.setItem('deepseek_api_key', key.trim());
+  localStorage.setItem('agnes_api_key', key.trim());
 }
 
 export function getLanguage() {
