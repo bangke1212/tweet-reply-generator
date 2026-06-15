@@ -198,8 +198,8 @@ Struktur mental (JANGAN tulis label ini di output):
 - Sebutkan teknik yang dipakai: Social Proof, Curiosity Gap, atau Authority.`;
 
 export const CONFIG = {
-  API_URL: 'https://apihub.agnes-ai.com/v1/chat/completions',
-  MODEL: 'agnes-chat',
+  API_URL: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent',
+  MODEL: 'gemini-1.5-flash',
   TEMPERATURE: 0.7,
   MAX_TOKENS: 2048,
 };
