@@ -199,7 +199,7 @@ Struktur mental (JANGAN tulis label ini di output):
 
 export const CONFIG = {
   API_URL: 'https://apihub.agnes-ai.com/v1/chat/completions',
-  MODEL: 'agnes-1.5-pro',
+  MODEL: 'sapiens-ai/agnes-1.5-pro',
   TEMPERATURE: 0.7,
   MAX_TOKENS: 2048,
 };
