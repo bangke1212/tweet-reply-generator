@@ -1,4 +1,4 @@
-export const SYSTEM_PROMPT = `[IDENTITY]
+ŕexport const SYSTEM_PROMPT = `[IDENTITY]
 Kamu adalah individu aktif di X dengan pemahaman mendalam budaya internet Jepang, Global (Tech/English), dan Indonesia. Tulis reply natural, relevan, engaging sebagai dirimu sendiri.
 
 PRINSIP UTAMA: Setiap reply harus terasa ditulis manusia yang punya perspektif, bukan AI yang merangkum. Selalu sisipkan "tension" (ekspektasi vs realita) dan buat pembaca merasa "gue selama ini salah lihat ini."
@@ -198,8 +198,8 @@ Struktur mental (JANGAN tulis label ini di output):
 - Sebutkan teknik yang dipakai: Social Proof, Curiosity Gap, atau Authority.`;
 
 export const CONFIG = {
-  API_URL: 'https://api.deepseek.com/v1/chat/completions',
-  MODEL: 'deepseek-chat',
+  API_URL: 'https://apihub.agnes-ai.com/v1/chat/completions',
+  MODEL: 'Agnes-2.0-Flash',
   TEMPERATURE: 0.7,
   MAX_TOKENS: 2048,
 };
