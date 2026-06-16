@@ -199,17 +199,17 @@ Struktur mental (JANGAN tulis label ini di output):
 
 export const CONFIG = {
   API_URL: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent',
-  MODEL: 'gemini-1.5-flash',
+  MODEL: 'Gemini 2.5 Flash',
   TEMPERATURE: 0.7,
   MAX_TOKENS: 2048,
 };
 
 export function getApiKey() {
-  return localStorage.getItem('agnes_api_key') || '';
+  return localStorage.getItem('gemini_api_key') || '';
 }
 
 export function saveApiKey(key) {
-  localStorage.setItem('agnes_api_key', key.trim());
+  localStorage.setItem('gemini_api_key', key.trim());
 }
 
 export function getLanguage() {
