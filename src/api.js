@@ -198,7 +198,7 @@ Struktur mental (JANGAN tulis label ini di output):
 - Sebutkan teknik yang dipakai: Social Proof, Curiosity Gap, atau Authority.`;
 
 export const CONFIG = {
-  API_URL: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent',
+  API_URL: 'https://https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent',
   MODEL: 'Gemini 2.5 Flash',
   TEMPERATURE: 0.7,
   MAX_TOKENS: 2048,
