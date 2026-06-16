@@ -298,27 +298,35 @@ export async function generateReply(tweetText, apiKey, options = {}) {
     userMessage += '\n\n---\n[OVERRIDE SETTINGS]\n' + overrides.join('\n');
   }
 
-  const response = await fetch(CONFIG.API_URL, {
+  const response = await fetch(
+  `${CONFIG.API_URL}?key=${apiKey}`,
+  {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: CONFIG.MODEL,
-      messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        { role: 'user', content: userMessage },
+      contents: [
+        {
+          parts: [
+            {
+              text: `${SYSTEM_PROMPT}\n\n${userMessage}`
+            }
+          ]
+        }
       ],
-      temperature,
-      max_tokens: CONFIG.MAX_TOKENS,
-      stream: false,
-    }),
-  });
+      generationConfig: {
+        temperature,
+        maxOutputTokens: CONFIG.MAX_TOKENS
+      }
+    })
+  }
+);
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    const msg = errorData.error?.message || 'Something went wrong.';
+  if (!response.ok) {const data = await response.json();
+
+const rawContent =
+  data.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
     if (response.status === 401) {
       throw new Error('Invalid API key. Check your key in settings.');
